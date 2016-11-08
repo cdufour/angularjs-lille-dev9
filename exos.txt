@@ -1,0 +1,35 @@
+EXO
+Ajouter un autre champ de saisi
+Afficher dans le div la concaténation des deux valeurs
+saisies
+
+
+Ajouter un couple propriété/valeur 'age' à vos clients et afficher
+les clients par age croissant
+
+
+Remplacer par la liste à puces par un tableau deux colonnes
+(une pour le nom, une pour l'âge)
+
+
+Dans le select des pays, remplacer les pays écrits 'en dur'
+dans le code HTML par des données fournies par mainController
+
+
+Ajouter à l'UI un bouton permettant de modifier la classe
+attribuée à la première colonne du tableau clients (qui
+au chargement n'a pas de classe)
+
+
+Comportement du bouton:
+premier clic => class1
+deuxième clic = class2
+
+
+Changer le critère et l'ordre du tri
+en cliquant sur les entêtes de colonne (Nom, Age)
+
+*** J2 ***
+
+Insérer une colonne prénom entre nom et age.
+Le clic sur l'entête de colonne permettra triera par prénom

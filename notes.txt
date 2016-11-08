@@ -1,0 +1,10 @@
+DIRECTIVES ANGULAR
+ng-app
+ng-model
+ng-bind
+ng-click
+ng-init
+ng-hide/ng-show
+ng-repeat
+ng-controller
+ng-style / ng-class

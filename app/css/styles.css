@@ -1,0 +1,13 @@
+.class1 {
+  color: green;
+  font-weight: bold
+}
+
+.class2 {
+  color: red;
+  font-style: italic;
+}
+
+.clicable {
+  cursor: pointer
+}

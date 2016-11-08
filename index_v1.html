@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app>
+  <head>
+    <meta charset="utf-8">
+    <title>Formation Angular</title>
+  </head>
+  <body ng-init="texteSaisi='Chris';clients=[{name:'Roberto', age:78, country:'Italie'}, {name:'Hanz', age:32, country:'Allemagne'}, {name:'David', age:65, country:'Italie'}]">
+
+    <h1>Formation Angularjs</h1>
+
+    <input type="text" ng-model="texteSaisi">
+    <input type="text" ng-model="texteSaisi2">
+    <button ng-click="texteSaisi='';texteSaisi2=''">Reset</button>
+
+    <div>{{texteSaisi}} {{texteSaisi2}}</div>
+    <h2>{{texteSaisi}}</h2>
+    <span ng-bind="texteSaisi">Chris</span>
+
+    <br><input type="checkbox" ng-model="hidden">
+    <span ng-hide="hidden">Afficher</span>
+    <span ng-show="hidden">Masquer</span> le paragraphe
+    <p ng-show="hidden">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, enim, velit quo dolorum ducimus nemo pariatur distinctio illum reprehenderit fuga laboriosam ad quam sit nobis rem odit. Ex, ducimus, dolorem.</p>
+
+    <!-- Itération grâce à la directive ng-repeat -->
+    <div>
+      <input type="text" ng-model="search">
+      <select ng-model="selectedCountry">
+        <option>Choisir un pays</option>
+        <option>Allemagne</option>
+        <option>France</option>
+        <option>Italie</option>
+      </select>
+    </div>
+
+    <table>
+      <tr ng-repeat="client in clients | filter:{age:search, country:selectedCountry} | orderBy:'age'">
+        <td>{{client.name}}</td>
+        <td>{{client.age}} ans</td>
+      </tr>
+    </table>
+    <script src="scripts/angular.min.js"></script>
+    <!--<script src="jquery-3.1.1.min.js"></script>-->
+    <script>
+    /*
+    $(document).ready(function() {
+      $('#input').on('keydown', function() {
+        var val = $(this).val();
+        $('#message').text(val);
+      });
+
+    });
+    */
+    </script>
+  </body>
+</html>
