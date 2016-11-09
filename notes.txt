@@ -8,3 +8,7 @@ ng-hide/ng-show
 ng-repeat
 ng-controller
 ng-style / ng-class
+ng-src
+ng-view
+
+https://github.com/cdufour/angularjs-lille-dev9

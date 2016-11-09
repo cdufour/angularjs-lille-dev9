@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html ng-app="testApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Formation Angular</title>
+    <link rel="stylesheet" href="app/css/bootstrap.min.css">
+    <link rel="stylesheet" href="app/css/styles.css">
+  </head>
+  <body>
+
+    <div ng-view></div>
+
+    <nav ng-controller="menuController">
+      <ul class="nav nav-tabs">
+        <li ng-repeat="menu in menus">
+          <a href="{{menu.url}}">{{menu.label}}</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div ng-controller="mainController">
+
+    <h1>{{titre}}</h1>
+
+    <input type="text" ng-model="texteSaisi">
+    <input type="text" ng-model="texteSaisi2">
+    <button class="btn btn-primary" ng-click="reset()">Reset</button>
+
+    <div>{{texteSaisi}} {{texteSaisi2}}</div>
+    <h2>{{texteSaisi}}</h2>
+    <span ng-bind="texteSaisi">Chris</span>
+
+    <br><input type="checkbox" ng-model="isChecked">
+    <span ng-hide="isChecked">Afficher</span>
+    <span ng-show="isChecked">Masquer</span> le paragraphe
+    <p ng-show="isChecked">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, enim, velit quo dolorum ducimus nemo pariatur distinctio illum reprehenderit fuga laboriosam ad quam sit nobis rem odit. Ex, ducimus, dolorem.</p>
+
+    <!-- Itération grâce à la directive ng-repeat -->
+    <div>
+      <input type="text" ng-model="search">
+      <select ng-model="selectedCountry">
+        <option value="">Choisir un pays</option>
+        <option
+          value="{{country}}"
+          ng-repeat="country in countries | orderBy">
+          {{country}}
+        </option>
+      </select>
+      <button ng-click="changeStyle()">Change style</button>
+    </div>
+
+    <div style="margin-top:40px">
+      <button
+        class="btn btn-primary"
+        ng-click="isVisible=!isVisible">Ajouter un client</button>
+      <div ng-show="isVisible">
+        <input type="text" placeholder="Nom" ng-model="client.lastname">
+        <input type="text" placeholder="Prénom" ng-model="client.name">
+        <input type="text" placeholder="Age" ng-model="client.age">
+        <button
+          ng-click="saveClient()"
+          class="btn btn-primary btn-xs">Enregistrer</button>
+        <span>{{messageError}}</span>
+
+      </div>
+    </div>
+
+    <!-- infos complémentaires -->
+    <div>{{clientsFiltered.length}} / {{clients.length}}</div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Photo</th>
+          <th ng-click="changeOrder('lastname')" class="clicable">Nom</th>
+          <th ng-click="changeOrder('name')" class="clicable">Prénom</th>
+          <th ng-click="changeOrder('age')" class="clicable">Age</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tr
+        ng-repeat="client in clientsFiltered = (clients |
+          filter:{age:search, country:selectedCountry}) |
+          orderBy:criterium:reverse"
+        ng-class="styleYoungest(client.age)">
+        <td>{{$index + 1}}</td>
+        <td>
+          <img class="client" ng-src="app/img/{{client.imageUrl}}">
+        </td>
+        <td>{{client.lastname}}</td>
+        <td>{{client.name}}</td>
+        <td>{{client.age}} ans</td>
+        <td>
+          <button
+            class="btn btn-danger"
+            ng-click="removeClient(client.lastname)">
+            Supprimer
+          </button>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/angular-route.min.js"></script>
+    <script src="scripts/util.js"></script>
+    <script src="app/app.js"></script>
+  </body>
+</html>

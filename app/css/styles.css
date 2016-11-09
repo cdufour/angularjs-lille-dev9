@@ -11,3 +11,7 @@
 .clicable {
   cursor: pointer
 }
+
+img.client {
+  width: 40px
+}

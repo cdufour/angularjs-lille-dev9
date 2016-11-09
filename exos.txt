@@ -33,3 +33,21 @@ en cliquant sur les entêtes de colonne (Nom, Age)
 
 Insérer une colonne prénom entre nom et age.
 Le clic sur l'entête de colonne permettra triera par prénom
+
+
+Validation des données
+Permettre l'enregistrement d'un client lorsque:
+- chacun des input contient au moins un caractère
+- l'input age est une valeur numérique
+
+Modifier la fonction isOneFieldEmpty de manière
+à ce qu'elle ne prenne en compte les clés
+passées dans le tableau des clés exlues
+(deuxième argument de la fonction)
+
+** Routing **
+Ajouter une route '404' à votre table de routage
+Le template chargé affichera un message d'erreur,
+(Exemple: "Désolé, page introuvable")
+On redirigera l'internaute sur cette page en cas
+de chemin non trouvé
