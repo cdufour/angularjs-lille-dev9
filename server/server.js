@@ -3,14 +3,19 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 
+// Déclaration d'un dossier public contenant fichiers statiques
+app.use(express.static('public'));
+
 app.use(bodyParser.json()); // for parsing application/json
 
+// Cors
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
+// Données
 var clients = [
       {
         name:'Roberto',
@@ -34,6 +39,7 @@ var clients = [
 
 var countries = ["Allemagne", "France", "Belgique", "Italie"];
 
+// Routes
 app.get('/test', function(req, res) {
   res.send("merci");
 });
@@ -62,6 +68,7 @@ app.post('/clients', function(req, res) {
   res.sendStatus(200);
 });
 
+// Démarrage serveur
 app.listen(4000, function() {
   console.log("Serveur écoute port 4000...");
 });

@@ -1,4 +1,4 @@
-DIRECTIVES ANGULAR
+Directives Angular les plus utiles:
 ng-app
 ng-model
 ng-bind
@@ -11,4 +11,8 @@ ng-style / ng-class
 ng-src
 ng-view
 
+Repo Github:
 https://github.com/cdufour/angularjs-lille-dev9
+
+Tuto directives personnalisées:
+https://youtu.be/H7k-3G8dPvE

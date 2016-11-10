@@ -7,4 +7,5 @@ on pourra filter cette liste selon des critères au choix
 - une vue détaillée permettant d'afficher plus d'infos
 sur le véhicule cible
 
-Les données Json seront par un serveur
+Les données Json (cars.json) seront fournies par un serveur
+(nodejs par exemple)
