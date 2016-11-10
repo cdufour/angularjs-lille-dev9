@@ -78,3 +78,9 @@ Créer et utiliser un filtre ellipse qui renvoie une version tronquée d'une cha
 lorsque celle-ci contient plus de 10 caractères
 
 exemple: Paulo Sousa Rebeira de Nacimiento | ellipse => Paulo Sousa...
+
+
+
+*** J4 ***
+Fournir la liste des pays par un serveur.
+Recommandation: créer un countryFactory

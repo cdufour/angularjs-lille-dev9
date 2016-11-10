@@ -34,31 +34,30 @@ angular.module("testApp")
   .constant("SETTINGS", {
     version: 1,
     email: "test@test.de",
-    active: true
+    active: true,
+    serverUrl: "http://localhost:4000/"
   });
 
 
 // Enregistrement des controllers
 angular.module("testApp")
-  .controller("mainController", function($http, $scope, $rootScope, clientFactory) {
+  .controller("mainController",
+    function($http, $scope, $rootScope, clientFactory, countryFactory) {
 
-    /*
-    Requête ajax
-    $http.get("http://localhost:4000/clients")
-      .then(function(clients) {
-        $scope.clients  = clients.data;
-      });
-    */
+    var cbFailure = function(res) {
+      console.log("ERREUR: " + res.status);
+    };
 
     $rootScope.clients = ['alpha', 'beta', 'gamma'];
     //$scope.clients = clientFactory.getAll();
     clientFactory.getAll().then(function(clients) {
       $scope.clients = clients.data;
-      clientFactory
-    });
+      clientFactory.set(clients.data);
+    }, cbFailure);
 
-    var countries = ["France", "Allemagne", "Italie", "Belgique"];
-    $scope.countries = countries;
+    countryFactory.getAll().then(function(res) {
+      $scope.countries = res.data;
+    }, cbFailure);
 
     $scope.reset = function() {
       $scope.texteSaisi = "";
@@ -81,8 +80,8 @@ angular.module("testApp")
       lastname: "",
       name: "",
       age: "",
-      country: "",
-      imageUrl: "baggio.jpg"
+      country: "France",
+      images: ['baggio.jpg']
     };
 
     var nbClics = 0;
@@ -123,16 +122,12 @@ angular.module("testApp")
       $scope.messageError = "";
       if (
         !isOneFieldEmpty($scope.client,
-          ["country", "imageUrl"]) &&
-        /*
-        $scope.client.lastname.length &&
-        $scope.client.name.length > 0 &&
-        $scope.client.age.length > 0 &&
-        */
-        isNumeric($scope.client.age)
+          ["country", "imageUrl"]) && isNumeric($scope.client.age)
       ) {
-        $scope.clients.push($scope.client);
-        //$scope.client = {}; destruction de l'objet
+        clientFactory.addClient($scope.client).then(function(res) {
+          $scope.clients.push($scope.client);
+        }, cbFailure);
+
       } else {
         $scope.messageError = "pas bien";
       }
@@ -163,32 +158,31 @@ angular.module("testApp")
     function($scope, $rootScope, $routeParams, $interval,
       clientFactory, testService, SETTINGS) {
 
-        console.log(testService.getPlayers());
+        if (clientFactory.isDataLoaded()) {
+          displayClient();
+        } else {
+          clientFactory.getAll().then(function(clients) {
+            clientFactory.set(clients.data);
+            displayClient();
+          });
+        }
 
-    // accès à la propriété clients du $rootScope
-    // initialisée dans le mainController
-    // problème potentiel : données inacessible au rechargement
-    // de la page client (car on n'est pas passé par mainController)
-    console.log("clients: " + $rootScope.clients);
-    console.log(SETTINGS.email);
+    function displayClient() {
+      var client = clientFactory.getByLastname($routeParams.lastname);
+      $scope.client = client;
+      var DELAY = 4000;
+      var imagePath = 'app/img/';
+      $scope.imageClient = imagePath + client.images[0];
+      var i = 1;
 
-    var client = clientFactory.getByLastname($routeParams.lastname);
-    $scope.client = client;
+      $interval(function() {
+        $scope.imageClient = imagePath + client.images[i];
+        i++;
+        // vérifier qu'on ne sort pas des bornes du tableau de photos
+        if (i === client.images.length) i = 0;
+      }, DELAY);
 
-    var DELAY = 4000;
-
-    var imagePath = 'app/img/';
-    $scope.imageClient = imagePath + client.images[0];
-
-    var i = 1;
-    $interval(function() {
-      $scope.imageClient = imagePath + client.images[i];
-      i++;
-      // vérifier qu'on ne sort pas des bornes du tableau de photos
-      if (i === client.images.length) i = 0;
-    }, DELAY);
-
-    //$scope.clients = clientFactory.getAll();
-    $scope.clients = clientFactory.getByCountry(client.country);
+      $scope.clients = clientFactory.getByCountry(client.country);
+    }
 
   });

@@ -1,9 +1,18 @@
 angular.module("testApp")
-  .factory("clientFactory", function($http) {
+  .factory("clientFactory", function($http, SETTINGS) {
     var factory = {};
+    var clients = null;
+
+    factory.isDataLoaded = function() {
+      return (clients === null) ? false : true;
+    };
+
+    factory.set = function(data) {
+      clients = data;
+    };
 
     factory.getAll = function() {
-      return $http.get("http://localhost:4000/clients/");
+      return $http.get(SETTINGS.serverUrl + 'clients');
     };
 
     factory.getByLastname = function(lastname) {
@@ -19,6 +28,10 @@ angular.module("testApp")
         if (client.country === country) clientsByCountry.push(client);
       });
       return clientsByCountry;
+    };
+
+    factory.addClient = function(client) {
+      return $http.post(SETTINGS.serverUrl + 'clients', client);
     };
 
     return factory;
