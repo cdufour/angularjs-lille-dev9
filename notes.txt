@@ -16,3 +16,6 @@ https://github.com/cdufour/angularjs-lille-dev9
 
 Tuto directives personnalisées:
 https://youtu.be/H7k-3G8dPvE
+
+Christophe DUFOUR
+opusidea@gmail.com
