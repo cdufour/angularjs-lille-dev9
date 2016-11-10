@@ -1,7 +1,7 @@
 <div>
 
   <!-- filtres -->
-  <div>
+  <div style="margin-top:20px">
     <input type="text" placeholder="Filtre par mot-clé" ng-model="search">
     <select ng-model="selectedCountry">
       <option value="">Filtre par pays</option>
@@ -14,9 +14,9 @@
   </div>
 
   <!-- formulaire d'ajout d'un client -->
-  <div style="margin-top:40px">
+  <div style="margin-top:20px">
     <button
-      class="btn btn-primary"
+      class="btn btn-primary btn-xs"
       ng-click="isVisible=!isVisible">Ajouter un client</button>
     <div ng-show="isVisible">
       <input type="text" placeholder="Nom" ng-model="client.lastname">
@@ -52,10 +52,10 @@
       ng-class="styleYoungest(client.age)">
       <td>{{$index + 1}}</td>
       <td>
-        <img class="client" ng-src="app/img/{{client.imageUrl}}">
+        <img class="client" ng-src="app/img/{{client.images[0]}}">
       </td>
-      <td>{{client.lastname}}</td>
-      <td>{{client.name}}</td>
+      <td>{{client.lastname | capitalize | ellipse:5:'***'}}</td>
+      <td>{{client.name | capitalize}}</td>
       <td>{{client.age}} ans</td>
       <td>
         <button

@@ -51,3 +51,30 @@ Le template chargé affichera un message d'erreur,
 (Exemple: "Désolé, page introuvable")
 On redirigera l'internaute sur cette page en cas
 de chemin non trouvé
+
+
+*** J3 Services ***
+Compléter la view client.html en affichant les autres champs
+du client (photo, pays, etc.)
+
+Plus fort:
+Attribuer à un client plusieurs photos
+Dans la view clients.html, afficher un slideshow des photos du client
+
+
+Dans la view client.html, afficher la liste des autres clients
+(Nom, prénom). Le clic sur un élément de cette liste affiche le détail
+
+
+Dans la view client.html, afficher la liste des autres clients du même pays
+(Nom, prénom). Le clic sur un élément de cette liste affiche le détail
+
+
+Améliorer le filtre capitalize pour qu'il prenne en compte
+les noms composés (avec espace). Option: prendre le tiret en compte
+
+
+Créer et utiliser un filtre ellipse qui renvoie une version tronquée d'une chaîne
+lorsque celle-ci contient plus de 10 caractères
+
+exemple: Paulo Sousa Rebeira de Nacimiento | ellipse => Paulo Sousa...

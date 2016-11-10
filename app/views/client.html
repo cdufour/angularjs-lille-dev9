@@ -1,1 +1,23 @@
-<h2>Détails du client {{lastname}}</h2>
+<h2>Détails du client {{client.lastname}}</h2>
+<div class="col-md-6">
+  <!--<img src="{{displayImg(client.images)}}" alt="{{client.lastname}}">-->
+
+  <!-- imageClient doit être modifiée dans le corps de la fonction $interval
+  toutes les n millisecondes -->
+  <img ng-src="{{imageClient}}" alt="{{client.lastname}}">
+</div>
+
+<div class="col-md-6">
+  <p>Prénom: {{client.name}}</p>
+  <p>Pays: {{client.country}}</p>
+
+  Autres clients
+  <ul>
+    <li
+      ng-hide="c.lastname === client.lastname"
+      ng-repeat="c in clients">
+      <a href="#/clients/{{c.lastname}}">{{c.name}} {{c.lastname}}</a>
+    </li>
+  </ul>
+
+</div>

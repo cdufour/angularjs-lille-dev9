@@ -29,23 +29,33 @@ angular.module("testApp").config(function($routeProvider) {
     .otherwise({redirectTo:'/404'});
 });
 
-angular.module("testApp").constant("AUTEUR", "Christophe");
+angular.module("testApp")
+  .constant("AUTEUR", "Christophe")
+  .constant("SETTINGS", {
+    version: 1,
+    email: "test@test.de",
+    active: true
+  });
+
 
 // Enregistrement des controllers
 angular.module("testApp")
-  .controller("mainController", function($scope, $rootScope, AUTEUR) {
-    console.log(AUTEUR);
+  .controller("mainController", function($http, $scope, $rootScope, clientFactory) {
+
+    /*
+    Requête ajax
+    $http.get("http://localhost:4000/clients")
+      .then(function(clients) {
+        $scope.clients  = clients.data;
+      });
+    */
 
     $rootScope.clients = ['alpha', 'beta', 'gamma'];
-
-    $scope.clients = [
-      {name:'Roberto', lastname:'Baggio', age:78, country:'Italie', imageUrl:'baggio.jpg'},
-      {name:'Hanz', lastname:'Muller', age:32, country:'Allemagne', imageUrl:'deniro.jpg'},
-      {name:'Giorgio Paulo', lastname:'Chiellini', age:45, country:'Italie', imageUrl:'deniro.jpg'},
-      {name:'Manuel', lastname:'Neur', age:8, country:'France', imageUrl:'baggio.jpg'},
-      {name:'Etienne', lastname:'Marcel Paul', age:23, country:'France', imageUrl:'deniro.jpg'},
-      {name:'David', lastname:'Beckham', age:65, country:'Italie', imageUrl:'beckham.jpg'}
-    ];
+    //$scope.clients = clientFactory.getAll();
+    clientFactory.getAll().then(function(clients) {
+      $scope.clients = clients.data;
+      clientFactory
+    });
 
     var countries = ["France", "Allemagne", "Italie", "Belgique"];
     $scope.countries = countries;
@@ -149,15 +159,36 @@ angular.module("testApp")
       {label:"Test", url:"#/test"}
     ];
   })
-  .controller("clientController", function($scope, $rootScope, $routeParams, AUTEUR) {
-    $scope.lastname = $routeParams.lastname;
+  .controller("clientController",
+    function($scope, $rootScope, $routeParams, $interval,
+      clientFactory, testService, SETTINGS) {
+
+        console.log(testService.getPlayers());
 
     // accès à la propriété clients du $rootScope
     // initialisée dans le mainController
     // problème potentiel : données inacessible au rechargement
     // de la page client (car on n'est pas passé par mainController)
     console.log("clients: " + $rootScope.clients);
-    console.log(AUTEUR);
+    console.log(SETTINGS.email);
 
-    // rechercher toutes les infos concernant ce client
+    var client = clientFactory.getByLastname($routeParams.lastname);
+    $scope.client = client;
+
+    var DELAY = 4000;
+
+    var imagePath = 'app/img/';
+    $scope.imageClient = imagePath + client.images[0];
+
+    var i = 1;
+    $interval(function() {
+      $scope.imageClient = imagePath + client.images[i];
+      i++;
+      // vérifier qu'on ne sort pas des bornes du tableau de photos
+      if (i === client.images.length) i = 0;
+    }, DELAY);
+
+    //$scope.clients = clientFactory.getAll();
+    $scope.clients = clientFactory.getByCountry(client.country);
+
   });
