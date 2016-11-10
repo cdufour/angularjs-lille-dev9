@@ -84,3 +84,7 @@ exemple: Paulo Sousa Rebeira de Nacimiento | ellipse => Paulo Sousa...
 *** J4 ***
 Fournir la liste des pays par un serveur.
 Recommandation: créer un countryFactory
+
+
+Modifier clientDirective :
+Le bouton 'Masquer image' doit masquer la photo du client

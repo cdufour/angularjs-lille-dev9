@@ -1,0 +1,21 @@
+<div class="row" style="width:400px">
+
+<h3>Client: {{message}}</h3>
+  <div class="col-md-6">
+    <p>Nom de famille: {{data.lastname}}</p>
+    <p>prénom: {{data.name}}</p>
+    <p>Age: {{data.age}}</p>
+  </div>
+
+  <div class="col-md-6">
+    <img
+      style="height: 70px"
+      ng-src="app/img/{{data.images[0]}}"
+      alt="data.lastname"
+      ng-show="isVisible">
+  </div>
+</div>
+
+<button
+  ng-click="isVisible=!isVisible"
+  class="btn btn-primary btn-xs">Afficher/masquer photo</button>

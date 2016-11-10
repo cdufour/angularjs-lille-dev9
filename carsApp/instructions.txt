@@ -1,0 +1,10 @@
+EXO FINAL
+Créer une petite SPA "carsApp" avec Angularjs.
+L'application proposera:
+- une vue affichant une liste de véhicules (3 colonnes/infos au choix)
+on pourra filter cette liste selon des critères au choix
+(nombre de places, présence de GPS, etc...)
+- une vue détaillée permettant d'afficher plus d'infos
+sur le véhicule cible
+
+Les données Json seront par un serveur
